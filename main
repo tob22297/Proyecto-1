@@ -201,3 +201,30 @@ void servo(void){
   ledcAttachPin(motorservo, canalservo); 
   ledcWrite(canalservo, 128); 
 }
+// en la función del semáforo de activan las leds dependiendo de la temperatura
+void funcionsemaforo(void){
+  //Si la temperatura es baja se activa la led verde y el servo se mueve a la izquierda
+  if(sensor <=37.0){
+    ledcWrite(canalverde, 1023);
+    ledcWrite(canalrojo, 0);
+    ledcWrite(canalamarillo, 0);
+    ledcWrite(canalservo, 120);
+    color = "#00ff00";
+  }
+//Si la temperatura es normal se activa la led amarilla y el servo se coloca en el centro
+  if(sensor >37.0 & sensor <= 37.5){
+    ledcWrite(canalverde, 0);
+    ledcWrite(canalrojo, 0);
+    ledcWrite(canalamarillo, 1023);
+    ledcWrite(canalservo, 75);
+    color = "#ffff00";
+  }
+// Si la temperatura es alta se enciende en led rojo y el motor se coloca a la derecha
+  if(sensor >37.5){
+    ledcWrite(canalverde, 0);
+    ledcWrite(canalrojo, 1023);
+    ledcWrite(canalamarillo, 0);
+    ledcWrite(canalservo, 26);
+    color = "#ff0000";
+  }
+}
