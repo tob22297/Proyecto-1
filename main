@@ -130,11 +130,74 @@ servo();
 
   Serial.print("Conectando...");
 
-  // connect to io.adafruit.com
+  // Se conecta
   io.connect();
 
-  // wait for a connection
+  // Se conecta al mismo internet (WiFi)
   while(io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(250);
   }
+// Se termina de conectar
+  Serial.println();
+  Serial.println(io.statusText());
+
+}
+
+void loop() {
+//Adafruit se mantiene leyendo los datos
+  io.run();
+//Si el botón se presiona, se leen estas funciones presentadas y además, el serial_monitor lo presenta en pantalla para saber si se está leyendo correctamente
+  if(boton.pressed != boton.laststate){
+    if(boton.pressed){
+    funciontempe();
+    funcionsemaforo();
+    funciondisplay();
+    Serial.printf("centenas: %u \n", centenas); 
+    Serial.printf("decenas: %u \n", decenas); 
+    Serial.printf("unidades: %u \n", unidades); 
+    enviar(sensor, color);
+    boton.pressed = false;
+    }
+  }
+
+boton.laststate = boton.pressed; 
+
+
+
+delay(50);
+}
+
+
+void funciontempe(void){
+sensortemp = analogRead(senstemp); //lee sensor
+
+float voltaje = sensortemp * (3.3 / 4095.0);
+  sensor = (voltaje * 100)+20;
+Serial.printf("valor sin mapear: %f \n", sensortemp); //verificar valores sin mapear
+Serial.printf("valor mapeado: %f \n", sensor); //verificar valores mapeados 
+}
+//en las leds y el servo se define el canal, frecuencia y resolución, además del pin al que se refiere.
+void rojo(void){
+  ledcSetup(canalrojo, freqPWM, resPWM); 
+  ledcAttachPin(ledrojo, canalrojo); 
+  ledcWrite(canalrojo, 0); 
+}
+
+void verde(void){
+  ledcSetup(canalverde, freqPWM, resPWM); 
+  ledcAttachPin(ledverde, canalverde); 
+  ledcWrite(canalverde, 0); 
+}
+
+void amarillo(void){
+  ledcSetup(canalamarillo, freqPWM, resPWM); 
+  ledcAttachPin(ledamarillo, canalamarillo); 
+  ledcWrite(canalamarillo, 0); 
+}
+
+void servo(void){
+  ledcSetup(canalservo, freqPWM, resPWM); 
+  ledcAttachPin(motorservo, canalservo); 
+  ledcWrite(canalservo, 128); 
+}
