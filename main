@@ -2,4 +2,34 @@
 #include <stdint.h>
 #include "config.h"
 #include <driver/ledc.h>
+//definir salidas del sistema y sensor de temperatura
+#define senstemp 34 
+#define ledrojo  21
+#define ledverde 22 
+#define ledamarillo 19 
+#define motorservo 2 
 
+//definir canal, frecuencia y resolucion para PWM (hay canales internos)
+#define canalrojo  8 
+#define canalverde 9
+#define canalamarillo 10
+#define canalservo 0
+
+#define freqPWM 50
+#define resPWM 10
+
+//Agregar varoables float para podes usar decimales
+float sensortemp = 0;
+float sensor = 0; 
+
+volatile int centenas = 0; 
+volatile int decenas = 0;
+volatile int unidades = 0; 
+volatile int digito = 0; 
+//definición de pines para los segmentos, el punto y los dígitos del display de 7 segmentos
+const int segment[] = {27,12,33,25,26,13,14};  
+const int punto = 32;  
+const int digitos[] = {18, 5, 23};  
+
+//Variables a utiliza en ADAFRUIT
+String color;
