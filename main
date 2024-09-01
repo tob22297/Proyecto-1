@@ -33,3 +33,34 @@ const int digitos[] = {18, 5, 23};
 
 //Variables a utiliza en ADAFRUIT
 String color;
+
+//se trabajará con un timer
+//Se configura el timer
+hw_timer_t *timer0 = NULL;
+
+// Configurarlo para le funcionamiento en Adafruit
+AdafruitIO_Feed *tempcanal = io.feed("Temperatura");
+AdafruitIO_Feed *semaforocanal = io.feed("Servo");
+
+//interrupciones del boton y su estructura
+portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
+
+struct Button {
+  const uint8_t PIN;
+  bool pressed;
+  bool laststate;
+};
+
+Button boton = {15, false, false};
+
+void IRAM_ATTR BOTON_ISR(){
+  portENTER_CRITICAL_ISR(&mux);
+  boton.pressed = true;
+  portEXIT_CRITICAL_ISR(&mux);
+}
+//declaración de funciones a utilizar durante el trabajo.
+void funciontempe(void); 
+void funcionsemaforo(void);
+void funciondisplay(void); 
+void printdisplay(int numero); 
+void Timer(void);
