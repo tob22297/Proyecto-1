@@ -228,3 +228,32 @@ void funcionsemaforo(void){
     color = "#ff0000";
   }
 }
+
+void funciondisplay(void){
+  //se definen las variables para poder utilizar decimales
+  int temp = sensor*10;
+  centenas = temp/100;
+  temp = temp-(centenas*100);
+  decenas = temp/10;
+  temp = temp-(decenas*10);
+  unidades = temp;
+}
+//Se definen los números de los dígitos del display con una matriz y una función posterior
+void printdisplay(int num) {
+  const int digits[10][7] = {
+    {0, 0, 0, 0, 0, 0, 1},  // 0
+    {1, 0, 0, 1, 1, 1, 1},  // 1
+    {0, 0, 1, 0, 0, 1, 0},  // 2
+    {0, 0, 0, 0, 1, 1, 0},  // 3
+    {1, 0, 0, 1, 1, 0, 0},  // 4
+    {0, 1, 0, 0, 1, 0, 0},  // 5
+    {0, 1, 0, 0, 0, 0, 0},  // 6
+    {0, 0, 0, 1, 1, 1, 1},  // 7
+    {0, 0, 0, 0, 0, 0, 0},  // 8
+    {0, 0, 0, 0, 1, 0, 0}   // 9
+  };
+
+  for (int i = 0; i < 7; i++) {
+    digitalWrite(segment[i], digits[num][i]);
+  }
+}
