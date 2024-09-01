@@ -96,8 +96,45 @@ void Timer(void);
 
 }
 //funciones para las salidas
-void initrojo(void);
-void initverde(void);
-void initamarillo(void);
-void initservo(void);
-void enviar(float enviar1, String enviar2);
+void rojo(void);
+void verde(void);
+void amarillo(void);
+void servo(void);
+void send(float enviar1, String enviar2);
+
+void setup() {
+
+rojo();
+verde();
+amarillo();
+servo();
+
+  //velocidad del serial monitor (monitor-speed)
+  Serial.begin(115200);
+
+  initTimer0();
+//contadores para pasar por los arreglos
+   for (int i = 0; i < 7; i++) {  
+    pinMode(segment[i], OUTPUT);
+  }
+  pinMode(punto, OUTPUT);
+  for (int i = 0; i < 3; i++) {
+    pinMode(digitos[i], OUTPUT);
+  }
+//definir estado del boton
+  pinMode(boton.PIN, INPUT_PULLUP);
+  attachInterrupt(boton.PIN, BOTON_ISR, RISING);
+
+  //Conexión con Adafruit (se observa en el serial print)
+  while(! Serial);
+
+  Serial.print("Conectando...");
+
+  // connect to io.adafruit.com
+  io.connect();
+
+  // wait for a connection
+  while(io.status() < AIO_CONNECTED) {
+    Serial.print(".");
+    delay(250);
+  }
