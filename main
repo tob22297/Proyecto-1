@@ -54,7 +54,7 @@ struct Button {
   bool laststate;
 };
 
-Button boton = {15, false, false};
+Button boton = {35, false, false};
 
 void IRAM_ATTR BOTON_ISR(){
   portENTER_CRITICAL_ISR(&mux);
