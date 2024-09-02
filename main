@@ -1,5 +1,5 @@
 // Video de YouTube: https://youtu.be/HMjgPYm4tVM?si=qn8Hj56orPgAK-Dp 
-//Drive del archivo Excel:
+//Drive del archivo Excel: https://docs.google.com/spreadsheets/d/1gvaBVxK13HLRWmDjYOVARH4cpv9JdUnQ/edit?usp=sharing&ouid=108352468691499910507&rtpof=true&sd=true
 
 #include <Arduino.h>
 #include <stdint.h>
