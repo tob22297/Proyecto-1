@@ -1,3 +1,6 @@
+// Video de YouTube: https://youtu.be/HMjgPYm4tVM?si=qn8Hj56orPgAK-Dp 
+//Drive del archivo Excel:
+
 #include <Arduino.h>
 #include <stdint.h>
 #include "config.h"
@@ -256,4 +259,12 @@ void printdisplay(int num) {
   for (int i = 0; i < 7; i++) {
     digitalWrite(segment[i], digits[num][i]);
   }
+}
+// función para enviar el valor de temperatura y el color del semaforo
+void enviar(float enviar1, String enviar2){
+Serial.println(enviar1);
+tempcanal ->save(enviar1);
+Serial.println(enviar2);    
+semaforocanal ->save(enviar2);
+delay(3000);
 }
